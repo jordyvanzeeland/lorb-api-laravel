@@ -20,7 +20,11 @@ class BooksController extends Controller
      */
 
     public function getReadingYears() {
-        $readingYears = Book::selectRaw('YEAR(readed) as year, COUNT(YEAR(readed)) as yearCount')->groupByRaw('YEAR(readed)')->get();
+        $readingYears = Book::selectRaw('YEAR(readed) as year, COUNT(YEAR(readed)) as yearCount')
+                            ->where('readed', '!=', '')
+                            ->groupByRaw('YEAR(readed)')
+                            ->get();
+
         return response()->json($readingYears, 200);
     }
 
@@ -40,6 +44,15 @@ class BooksController extends Controller
      public function getBooksByYear(string $year){
         $booksList = Book::whereYear('readed', $year)->get();
         return response()->json($booksList, 200);
+    }
+
+    /**
+     * Retrieve book that's currently reading.
+     */
+
+    public function getCurrentReading(){
+        $current = Book::where('readed', null)->get();
+        return response()->json($current, 200);
     }
 
     /**

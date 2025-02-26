@@ -18,6 +18,7 @@ Route::group([
 ], function ($router) {
     Route::get("years", 'App\Http\Controllers\BooksController@getReadingYears');
     Route::get("books", 'App\Http\Controllers\BooksController@getAllBooks');
+    Route::get("current", 'App\Http\Controllers\BooksController@getCurrentReading');
     Route::get("books/year/{year}", 'App\Http\Controllers\BooksController@getBooksByYear');
     Route::post("books", 'App\Http\Controllers\BooksController@insertBook');
     Route::get("book/{id}", 'App\Http\Controllers\BooksController@getBook');
